@@ -1,0 +1,38 @@
+notes of task2
+
+Problem 1:
+I understood that there are built-in functions that calculate the maximum and minimum numbers from an array (max() and min()), or we can calculate them manually using comparisons.
+
+Problem 2:
+I understood that we need to check whether the number entered by the user is even, odd, or negative to decide the steps.
+If it is negative, print a message saying a positive number is required.
+If it is even, we add the number to the sequence of previous even numbers by subtracting 2 each time until we reach zero.
+If it is odd, subtract 1 to make it even, then follow the same steps as for an even number.
+
+Problem 3:
+I understood that Python has a built-in function complex() that takes user input and converts it into a complex number in the form x + yi.
+abs() gives the magnitude of the complex number.
+phase() gives the angle (theta) of the complex number.
+All these functions are in the cmath library.
+
+problem 4: 
+I understood the concept of if and elif in python
+
+Problem 5:
+I understood that we can create a sequence of numbers from 1 to n and print them as a single concatenated string.
+First, we take input n from the user.
+Then, we generate a list of numbers from 1 to n.
+Convert each number to a string so they can be joined together.
+Use "".join() to combine all numbers into one continuous string.
+Finally, print the result.
+
+Problem 6:
+I understood that Python has a built-in function split() that separates a sentence into individual words.
+To reverse the order of words, we can use a for loop with a negative step in range() to iterate from the last word to the first.
+
+Problem 7:
+I understood that we can use the terminal to get basic system information using these commands:
+echo "ROS Track #1 on Planet Earth" : prints a custom message to the terminal.
+date : shows the current date and time.
+lsb_release -a : displays Ubuntu version details and other OS information.
+systemd-detect-virt : detects if the system is running in a virtual machine or physical hardware.
