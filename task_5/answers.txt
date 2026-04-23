@@ -1,0 +1,46 @@
+1) What do symbols like -rw-r--r-- mean?
+They represent file permissions in Linux:
+ r = read permission
+ w = write permission
+ x = execute permission
+ - = no permission
+
+The format is:
+owner | group | others
+
+Example:
+-rw-r--r--
+Owner can read/write, group can read, others can read.
+
+
+2) Which file is executable? How do you know?
+script.sh is executable because it has execute permission (x) for owner, group, and others:
+-rwxr-xr-x
+
+This comes from chmod 755.
+
+
+3) Which file is only accessible by its owner?
+secret.txt is only accessible by its owner because it has:
+-rw-------
+
+Only the owner can read and write it, no permissions for group or others.
+
+
+4) What is the difference between file1.txt and secret.txt?
+
+file1.txt → -rw-r--r-- (644)
+ Owner can read/write
+ Group and others can only read
+
+secret.txt → -rw------- (600)
+ Only owner can read/write
+ No access for anyone else
+
+
+5) What do the three parts of permissions represent?
+They represent:
+Owner permissions | Group permissions | Others permissions
+
+Each part controls:
+read (r), write (w), execute (x)
