@@ -1,0 +1,52 @@
+problem 1:
+We create a base class called Animal.
+This class contains a method called speak(), which represents a general sound made by an animal. 
+In the base class, this method prints a generic message such as "Some sound".
+Next, we create a child class called Dog that inherits from the Animal class.
+This means the Dog class automatically gets all properties and methods of the Animal class.
+However, the Dog class overrides the speak() method. 
+Method overriding means redefining a method in the child class that already exists in the parent class. 
+In this case, the Dog class changes the behavior of speak() to print "Woof", which is the specific sound of a dog.
+main concept: method overriding, where the child class customizes inherited behavior.
+
+problem 2 :
+The Classroom class has one main attribute:
+students: an empty list used to store the names of students in the classroom.
+Methods:
+add_student(name):
+This method adds a student’s name to the students list.
+It uses the append() function to insert the new name at the end of the list.
+count_students():
+This method returns the total number of students currently stored in the students list.
+It uses the len() function to count the elements in the list.
+
+problem 3 :
+The Flight class represents a flight and is responsible for managing passengers. 
+It has an attribute called passengers, which is an empty list used to store multiple Passenger objects. 
+This allows the flight to keep track of all the people on board.
+The Flight class also includes a method called add_passenger(passenger_obj). 
+This method takes a Passenger object as a parameter and adds it to the passengers list using the append() function.
+This means the flight does not store simple text values, but full objects that contain passenger information.
+
+problem 4 :
+The Player class represents an individual player in a game.
+Each player has two attributes: a name, which stores the player’s name, and a score, which stores the player’s performance score. 
+Every player is created as an object of this class, holding its own specific data.
+The Team class represents a group of players. 
+It contains an attribute called members, which is an empty list used to store multiple Player objects. 
+This allows the team to manage all its players in one place.
+Inside the Team class, there is a method called add_player(player_object). 
+This method takes a Player object as input and adds it to the members list using the append() function. 
+This means the team stores full objects instead of simple values like strings or numbers.
+
+problem 5 :
+We start with a base class called Shape.
+It has a method called area(), but we don’t implement it there. 
+We just write pass because each shape will define its own area.
+Then we create two subclasses: Circle and Square. 
+Both inherit from Shape.
+Each class has its own data and its own version of area(). 
+Finally, we write a function called print_area(shape_object). 
+This function works with any shape object. It simply calls shape_object.area() and prints the result. 
+It doesn’t care if the object is a circle or a square.
+main concept of it is polymorphism:means using the same method name for different classes, but each class does something different.
