@@ -1,0 +1,19 @@
+Opinion:
+The contest was interesting and helpful for improving problem-solving skills and understanding basic programming concepts.
+It included a good mix of easy and medium problems that tested input handling, loops, and logic building.
+
+Pros
+Problems were well-structured and clearly stated.
+Good variety of topics.
+Helped improve thinking in step-by-step problem solving.
+Strong focus on real coding logic rather than memorization.
+
+Cons
+Some problems required careful input handling, which was not always clearly emphasized.
+A few statements were long and slightly confusing at first reading.
+
+suggestions for improvments:
+Reduce the length of problem statements by focusing only on essential information.
+Present key parts in a clearer and more structured format.
+
+
