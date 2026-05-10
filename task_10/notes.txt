@@ -1,0 +1,9 @@
+Nodes:
+Nodes are independent running programs in ROS 2. Each node performs a specific task such as controlling a robot, processing data, or running a simulation. In our case, the Turtlesim node is responsible for displaying and controlling the turtle, while another node handles keyboard input.
+
+Topics:
+Topics are communication channels used for continuous data exchange between nodes. One node publishes data to a topic, and other nodes subscribe to receive it. 
+For example, the /turtle1/cmd_vel topic is used to send movement commands to the turtle, and /turtle1/pose provides the turtle’s position in real time.
+
+Services:
+Services are used for one-time request and response actions. Unlike topics, they do not continuously send data. Instead, a node sends a request and receives a response immediately. For example, /clear removes all drawings from the screen, and /reset returns the turtle to its initial state.
