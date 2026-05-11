@@ -4,7 +4,7 @@
 
 The ROS 2 Jazzy desktop was installed successfully, including all required packages such as `ros-jazzy-desktop`, `libpcl-dev`, and `libvtk9-dev`.
 
-![Successful Installation](successful_installation_screenshot.png)
+![Successful Installation](successful installation_screenshot.png)
 
 ---
 
@@ -12,7 +12,7 @@ The ROS 2 Jazzy desktop was installed successfully, including all required packa
 
 ### Terminal Output
 
-![Nodes Topics Services](list_of_nodes_topics_and_services_screenshots.png)
+![Nodes Topics Services](list of nodes,topics,and services_screenshots.png)
 
 ### Active Nodes
 - `/turtlesim` — runs the simulation window and controls the turtle
