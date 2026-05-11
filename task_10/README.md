@@ -12,7 +12,7 @@ The ROS 2 Jazzy desktop was installed successfully, including all required packa
 
 ### Terminal Output
 
-![Nodes Topics Services](nodes_topic_services)
+![Nodes Topics Services](nodes_topic_services.png)
 
 ### Active Nodes
 - `/turtlesim` — runs the simulation window and controls the turtle
