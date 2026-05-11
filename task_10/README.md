@@ -78,12 +78,12 @@ ros2 topic pub --rate 10 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 
 ![Circle Result](circle_screenshot.png)
 
 ### Why `--rate` is Used
-The `--rate 10` flag publishes the command **10 times per second** continuously. Without it, the command would be sent only once (`--once`) and the turtle would stop immediately after a tiny movement. Continuous publishing at a fixed rate is what keeps the turtle moving in a smooth, sustained circle.
+The `--rate 10` flag publishes the command **10 times per second** continuously. Without it, the command would be sent only once and the turtle would stop immediately. Continuous publishing keeps the turtle moving in a smooth circle.
 
 ### Linear x / Angular z Logic
-- **`linear.x`** controls forward speed — the higher the value, the faster the turtle moves forward
-- **`angular.z`** controls rotation speed — a positive value turns left, negative turns right
-- When both are set simultaneously (e.g., `linear.x: 2.0, angular.z: 1.0`), the turtle moves in a **circle**. The radius of the circle depends on the ratio: `radius = linear.x / angular.z`
+- **`linear.x`** controls forward speed
+- **`angular.z`** controls rotation speed — positive turns left, negative turns right
+- Both together make the turtle move in a circle
 
 ---
 
@@ -91,17 +91,12 @@ The `--rate 10` flag publishes the command **10 times per second** continuously.
 
 ### Commands Used
 
-The star was drawn by alternating between moving forward and turning by a specific angle. A 5-pointed star requires turning **144°** (in radians: ~2.5 rad) between each point.
-
 ```bash
-# Step 1 — Move forward
 ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 4.0}, angular: {z: 0.0}}"
-
-# Step 2 — Turn right 144°
 ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0}, angular: {z: -2.5}}"
 ```
 
-Repeat the above two commands **5 times** to complete the star.
+Repeat 5 times to complete the star.
 
 ![Star Commands](commands_for_star_screenshot.png)
 
@@ -109,19 +104,14 @@ Repeat the above two commands **5 times** to complete the star.
 
 ### Difference: Manual vs Teleop Movement
 
-| | Teleop (`teleop_turtle`) | Terminal (`topic pub`) |
+| | Teleop | Terminal pub |
 |---|---|---|
-| Control method | Keyboard arrow keys | Terminal commands |
-| Movement type | Real-time, continuous | One command at a time |
-| Precision | Low — depends on human reaction | High — exact values specified |
-| Use case | Quick exploration | Precise shapes and automation |
-
-With **teleop**, movement is continuous as long as a key is held. With **terminal pub**, each command sends an exact velocity for one moment (`--once`) or at a fixed rate (`--rate`), giving full control over speed and angle.
+| Control | Keyboard arrow keys | Terminal commands |
+| Movement | Real-time continuous | One command at a time |
+| Precision | Low | High — exact values |
 
 ---
 
 ## Demo Video
-
-A short video demonstrating both keyboard control (teleop) and terminal control (topic pub), explaining the Linear x / Angular z logic, the `--rate` flag, and the difference between manual and teleop movement.
 
 [Watch Demo Video](ros_task10-2026-05-11_01_47_50.mp4)
