@@ -42,21 +42,19 @@ rqt_graph
 ```
 
 ### Nodes/Topics (all) view
-![RQT Graph All Topics](screenshots/rosgraph.png)
+![RQT Graph All Topics](rosgraph.png)
 
 ---
 
 ## Terminal Output
 
 ### [CLEAR] — Path is safe
-![CLEAR output](screenshots/clear_log_screenshot)
-
+![CLEAR output](clear_log_screenshot.png)
 
 ### [DANGER] — Yield required
-![DANGER output](screenshots/danger_log_screenshot)
+![DANGER output](danger_log.png)
 
-
-=---
+---
 
 ## Yielding Protocol — Math
 
@@ -102,4 +100,4 @@ Since all callbacks and the timer run inside a single `SingleThreadedExecutor`, 
 
 ## Demo Video
 
-[https://youtu.be/x43_hS1JMk4]
+[![Demo Video](https://img.youtube.com/vi/x43_hS1JMk4/0.jpg)](https://youtu.be/x43_hS1JMk4)
