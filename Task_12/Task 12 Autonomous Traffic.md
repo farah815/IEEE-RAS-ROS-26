@@ -39,11 +39,16 @@ source install/setup.bash
 ros2 run task_12 traffic_manager
 ```
 
-**Terminal 3 — View the RQT graph :**
+**Terminal 3 — View the RQT graph (optional):**
 ```bash
 source /opt/ros/jazzy/setup.bash
 rqt_graph
 ```
+
+> If running as loose scripts instead of an installed package, replace the
+> `ros2 run` commands above with `python3 fleet_emulator.py` and
+> `python3 traffic_manager.py` (after sourcing ROS2 in each terminal).
+
 ---
 
 ## Robots & Priorities
@@ -56,80 +61,6 @@ rqt_graph
 | 4        | 4        |
 
 Higher number = higher priority = right of way.
-
----
-
-## Terminal Output
-
-Each 0.1s cycle prints a full comparison table, e.g.:
-
-```
-======================================================================
-               CENTRAL TRAFFIC MANAGER
-======================================================================
-Robot 1 vs Robot 2 | distance=8.46 m | SAFE -> both CLEAR
-Robot 1 vs Robot 3 | distance=1.63 m | TOO CLOSE -> Robot 3 (priority=1) YIELDS to Robot 1 (priority=3)
-Robot 1 vs Robot 4 | distance=2.04 m | SAFE -> both CLEAR
-Robot 2 vs Robot 3 | distance=8.53 m | SAFE -> both CLEAR
-Robot 2 vs Robot 4 | distance=7.65 m | SAFE -> both CLEAR
-Robot 3 vs Robot 4 | distance=0.94 m | TOO CLOSE -> Robot 3 (priority=1) YIELDS to Robot 4 (priority=4)
-======================================================================
-```
-
----
-
-## Screenshots
-
-### RQT Graph — Nodes & Topic Connections
-Shows the `traffic_manager` node subscribed to a robot's two independent
-topics (`/robot_N/pose` and `/robot_N/priority`), confirming the two data
-streams are wired as separate connections rather than a single combined topic.
-
-![RQT Graph](home/farah/ros2_ws/src/Task12/Task12/rosgraph1)
-
-### Terminal Output — SAFE / CLEAR case
-Two robots farther apart than the 2.0 m safety radius — no yield required.
-
-![Safe / Clear log](home/farah/ros2_ws/src/Task12/Task12/clear_log_screenshot1)
-
-### Terminal Output — TOO CLOSE / DANGER case
-Two robots within the 2.0 m safety radius — the lower-priority robot is
-told to yield.
-
-![Too close / Danger log](home/farah/ros2_ws/src/Task12/Task12/anger_log1)
-
-> Place the three screenshot files above in a `screenshots/` folder next to
-> this README, named to match the paths used here (or update the paths to
-> match your filenames).
-
----
-
-## Synchronization Notes
-
-Position and priority arrive on **two separate topics per robot**
-(`/robot_N/pose` and `/robot_N/priority`), published independently and not
-guaranteed to arrive at the same time or in the same order.
-
-To handle this without locking or blocking:
-
-- Each robot gets one dictionary entry (`self.robots[rid]`) holding `x`, `y`,
-  and `priority`, all initialized to `None`.
-- A separate, lightweight callback is registered per topic per robot. Each
-  callback's only job is to overwrite its one field in the dictionary the
-  instant a message arrives — it does no comparison or decision logic itself.
-- The decision logic lives entirely in a single 10 Hz timer (`decision_loop`),
-  which reads whatever is currently cached in the dictionary at that instant.
-  This decouples "receiving data" from "acting on data": the timer always
-  works off the latest known snapshot, not a value that might still be in
-  transit.
-- Before comparing any robot, the code checks that **both** `x`/`y` and
-  `priority` are non-`None`. This guards against a startup race where pose
-  arrives before priority (or vice versa) — that robot is simply skipped
-  from comparisons until both streams have reported at least once.
-- Since the node runs in ROS2's default single-threaded executor, all
-  callbacks and the timer execute one at a time on the same thread — they
-  can never run concurrently or interrupt each other mid-update, so no
-  mutex/lock is needed to protect the shared dictionary.
 
 ---
 
@@ -175,9 +106,11 @@ this gives 6 comparisons per cycle instead of 12.
 
 ## Synchronization Between Position and Priority Streams
 
-Each robot publishes on two independent topics — one for `Pose2D` and one for
-`Int32`. The `traffic_manager` subscribes to both streams for every robot and
-caches the latest value in a shared dictionary:
+Each robot publishes on **two independent topics** — one for `Pose2D` and one
+for `Int32` — and these are not guaranteed to arrive at the same time or in
+the same order. The `traffic_manager` handles this by caching the latest
+value from each stream in a shared dictionary, rather than trying to
+synchronize the two streams directly:
 
 ```python
 self.robots = {
@@ -189,21 +122,74 @@ self.robots = {
 ```
 
 - The **pose callback** updates `x` and `y` whenever a `/robot_N/pose`
-  message arrives.
-- The **priority callback** updates `priority` whenever a `/robot_N/priority`
-  message arrives.
-- The **10 Hz decision timer** (`decision_loop`) reads the latest snapshot of
-  this dictionary every tick and runs the full pairwise comparison.
-
-Since all callbacks and the timer run inside a single-threaded ROS2 executor,
-they never interleave — no locking is needed. A robot is only included in a
-comparison once both its `x`/`y` and `priority` are non-`None`, which
-prevents partial or stale reads at startup.
-
-The entire cycle's report is built as one string and printed with a single
-`print()` call, so output is never garbled or interleaved between cycles.
+  message arrives. The **priority callback** updates `priority` whenever a
+  `/robot_N/priority` message arrives. Each callback only writes its one
+  field — no comparison or decision logic happens inside a callback.
+- The **10 Hz decision timer** (`decision_loop`) reads whatever is currently
+  cached in the dictionary at that instant and runs the full pairwise
+  comparison. This decouples "receiving data" from "acting on data": the
+  timer always works off the latest known snapshot, never a value still in
+  transit.
+- Before comparing any robot, the code checks that **both** `x`/`y` and
+  `priority` are non-`None`. This guards against a startup race where pose
+  arrives before priority (or vice versa) — that robot is simply skipped
+  from comparisons until both streams have reported at least once.
+- Since the node runs in ROS2's default single-threaded executor, all
+  callbacks and the timer execute one at a time on the same thread — they
+  can never run concurrently or interrupt each other mid-update, so no
+  mutex/lock is needed to protect the shared dictionary.
+- The entire cycle's report is built as one string and printed with a single
+  `print()` call, so output is never garbled or interleaved between cycles.
 
 ---
+
+## Terminal Output
+
+Each 0.1s cycle prints a full comparison table, e.g.:
+
+```
+======================================================================
+               CENTRAL TRAFFIC MANAGER
+======================================================================
+Robot 1 vs Robot 2 | distance=8.46 m | SAFE -> both CLEAR
+Robot 1 vs Robot 3 | distance=1.63 m | TOO CLOSE -> Robot 3 (priority=1) YIELDS to Robot 1 (priority=3)
+Robot 1 vs Robot 4 | distance=2.04 m | SAFE -> both CLEAR
+Robot 2 vs Robot 3 | distance=8.53 m | SAFE -> both CLEAR
+Robot 2 vs Robot 4 | distance=7.65 m | SAFE -> both CLEAR
+Robot 3 vs Robot 4 | distance=0.94 m | TOO CLOSE -> Robot 3 (priority=1) YIELDS to Robot 4 (priority=4)
+======================================================================
+```
+
+---
+
+## Screenshots
+
+### RQT Graph — Nodes & Topic Connections
+Shows the `traffic_manager` node subscribed to a robot's two independent
+topics (`/robot_N/pose` and `/robot_N/priority`), confirming the two data
+streams are wired as separate connections rather than a single combined topic.
+
+![RQT Graph](screenshots/rqt_graph.png)
+
+### Terminal Output — SAFE / CLEAR case
+Two robots farther apart than the 2.0 m safety radius — no yield required.
+
+![Safe / Clear log](screenshots/safe_clear_log.png)
+
+### Terminal Output — TOO CLOSE / DANGER case
+Two robots within the 2.0 m safety radius — the lower-priority robot is
+told to yield.
+
+![Too close / Danger log](screenshots/too_close_danger_log.png)
+
+> Place the three screenshot files above in a `screenshots/` folder next to
+> this README, named to match the paths used here (or update the paths to
+> match your filenames).
+
+---
+
+## Demo Video
+[https://youtu.be/PaUAHdrA5yc](https://youtu.be/PaUAHdrA5yc)
 
 ## Demo Video
 [https://youtu.be/PaUAHdrA5yc
