@@ -165,31 +165,29 @@ Robot 3 vs Robot 4 | distance=0.94 m | TOO CLOSE -> Robot 3 (priority=1) YIELDS 
 ## Screenshots
 
 ### RQT Graph — Nodes & Topic Connections
-Shows the `traffic_manager` node subscribed to a robot's two independent
-topics (`/robot_N/pose` and `/robot_N/priority`), confirming the two data
-streams are wired as separate connections rather than a single combined topic.
+Shows all 4 robot emulator nodes (`/robot_1_emulator` … `/robot_4_emulator`),
+each publishing on two independent topics (`/robot_N/pose` and
+`/robot_N/priority`), all feeding into the single centralized
+`/traffic_manager` node.
 
-![RQT Graph](screenshots//rqt_graph1.png)
+![RQT Graph](rosgraph1.png)
 
 ### Terminal Output — SAFE / CLEAR case
-Two robots farther apart than the 2.0 m safety radius — no yield required.
+All robot pairs farther apart than the 2.0 m safety radius — every pair
+reports `SAFE -> both CLEAR`, no yield required.
 
-![Safe / Clear log](screenshots/clear_log_screenshot1.png)
+![Safe / Clear log](clear_log_screenshot1.png)
 
 ### Terminal Output — TOO CLOSE / DANGER case
-Two robots within the 2.0 m safety radius — the lower-priority robot is
-told to yield.
+Robot 2 and Robot 4 close to within 1.6–2.3 m of each other: Robot 4
+(priority=4) yields to Robot 2 (priority=5). Later, Robot 3 and Robot 4 also
+come within range, and Robot 3 (priority=1) yields to Robot 4 (priority=4).
 
-![Too close / Danger log](screenshots/danger_log1)
+![Too close / Danger log](danger_log1.png)
 
-> Place the three screenshot files above in a `screenshots/` folder next to
-> this README, named to match the paths used here (or update the paths to
-> match your filenames).
+> Screenshot files are kept in the same folder as this README.
 
 ---
 
 ## Demo Video
-
-
-[https://youtu.be/PaUAHdrA5yc
-]
+[https://youtu.be/PaUAHdrA5yc](https://youtu.be/PaUAHdrA5yc)
