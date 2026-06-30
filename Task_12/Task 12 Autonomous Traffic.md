@@ -45,12 +45,6 @@ source /opt/ros/jazzy/setup.bash
 rqt_graph
 ```
 
-> If running as loose scripts instead of an installed package, replace the
-> `ros2 run` commands above with `python3 fleet_emulator.py` and
-> `python3 traffic_manager.py` (after sourcing ROS2 in each terminal).
-
----
-
 ## Robots & Priorities
 
 | Robot ID | Priority |
@@ -190,4 +184,4 @@ come within range, and Robot 3 (priority=1) yields to Robot 4 (priority=4).
 ---
 
 ## Demo Video
-[https://youtu.be/PaUAHdrA5yc](https://youtu.be/PaUAHdrA5yc)
+(https://youtu.be/PaUAHdrA5yc)
