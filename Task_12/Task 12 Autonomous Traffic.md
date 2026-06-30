@@ -169,18 +169,18 @@ Shows the `traffic_manager` node subscribed to a robot's two independent
 topics (`/robot_N/pose` and `/robot_N/priority`), confirming the two data
 streams are wired as separate connections rather than a single combined topic.
 
-![RQT Graph](screenshots/rqt_graph.png)
+![RQT Graph](rqt_graph1.png)
 
 ### Terminal Output — SAFE / CLEAR case
 Two robots farther apart than the 2.0 m safety radius — no yield required.
 
-![Safe / Clear log](screenshots/safe_clear_log.png)
+![Safe / Clear log](clear_log_screenshot1.png)
 
 ### Terminal Output — TOO CLOSE / DANGER case
 Two robots within the 2.0 m safety radius — the lower-priority robot is
 told to yield.
 
-![Too close / Danger log](screenshots/too_close_danger_log.png)
+![Too close / Danger log](danger_log1)
 
 > Place the three screenshot files above in a `screenshots/` folder next to
 > this README, named to match the paths used here (or update the paths to
@@ -191,6 +191,5 @@ told to yield.
 ## Demo Video
 [https://youtu.be/PaUAHdrA5yc](https://youtu.be/PaUAHdrA5yc)
 
-## Demo Video
 [https://youtu.be/PaUAHdrA5yc
 ]
