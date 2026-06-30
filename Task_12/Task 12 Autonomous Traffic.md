@@ -170,20 +170,20 @@ each publishing on two independent topics (`/robot_N/pose` and
 `/robot_N/priority`), all feeding into the single centralized
 `/traffic_manager` node.
 
-![RQT Graph](rosgraph1.png)
+![RQT Graph](rosgraph.png)
 
 ### Terminal Output — SAFE / CLEAR case
 All robot pairs farther apart than the 2.0 m safety radius — every pair
 reports `SAFE -> both CLEAR`, no yield required.
 
-![Safe / Clear log](clear_log_screenshot1.png)
+![Safe / Clear log](clear_log_screenshot.png)
 
 ### Terminal Output — TOO CLOSE / DANGER case
 Robot 2 and Robot 4 close to within 1.6–2.3 m of each other: Robot 4
 (priority=4) yields to Robot 2 (priority=5). Later, Robot 3 and Robot 4 also
 come within range, and Robot 3 (priority=1) yields to Robot 4 (priority=4).
 
-![Too close / Danger log](danger_log1.png)
+![Too close / Danger log](danger_log.png)
 
 > Screenshot files are kept in the same folder as this README.
 
