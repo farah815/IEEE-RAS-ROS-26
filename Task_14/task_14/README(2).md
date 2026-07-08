@@ -53,7 +53,7 @@ This launch file:
 
 **Launch command running successfully:**
 
-![Launch command running successfully](screenshots/launch_succesfull.png)
+![Launch command running successfully](screenshots/launch_successfull.png)
 
 ## Demo Video
 
