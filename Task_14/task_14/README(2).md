@@ -61,4 +61,4 @@ A 2–3 minute video explaining the world creation, simulation launch, nodes sta
 
 ▶️ **[Watch on YouTube](https://youtu.be/e1bx62q4Mbs)**
 
-[![Watch the demo video](https://img.youtube.com/vi/BE2x1sQAbQ8/0.jpg)](https://youtu.be/e1bx62q4Mbs)
+
