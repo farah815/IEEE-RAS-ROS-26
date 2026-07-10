@@ -51,7 +51,7 @@ Every link in the URDF gets its own TF frame, and `robot_state_publisher` broadc
 ```bash
 ros2 run tf2_tools view_frames
 ```
-![TF Tree](/home/farah/ros2_ws/src/Task_15/screenshots/frames.png)
+![TF Tree](screenshots/frames.png)
 
 ## Exploring the System
 
@@ -59,22 +59,22 @@ ros2 run tf2_tools view_frames
 ```bash
 ros2 topic list
 ```
-![Topic List](/home/farah/ros2_ws/src/Task_15/topic_list.png)
+![Topic List](screenshots/topic_list.png)
 
 **Live transform broadcasts** — this confirms the `origin` values from the URDF joints (e.g. `gripper_pole` at `x: 0.19, z: 0.2` relative to `base_link`, `head` at `z: 0.3`):
 ```bash
 ros2 topic echo /tf
 ```
-![TF Echo](/home/farah/ros2_ws/src/Task_15/tf.png)
+![TF Echo](screenshots/tf.png)
 
 **Joint states before moving the sliders** — all joints start at `0.0`:
 ```bash
 ros2 topic echo /joint_states
 ```
-![Joint States Before](/home/farah/ros2_ws/src/Task_15/vefore_changing_joints.png)
+![Joint States Before](screenshots/vefore_changing_joints.png)
 
 **Joint states after moving the sliders** — the wheel joints, gripper extension, and gripper joints now show non-zero values, matching the slider positions in the GUI:
-![Joint States After](/home/farah/ros2_ws/src/Task_15/after_changing_joints.png)
+![Joint States After](screenshots/after_changing_joints.png)
 
 ## Simple Modification
 I copied `07-physics.urdf` into this `Task_15` folder and changed the **material color** of `base_link` from **red** to **blue**:
@@ -86,10 +86,10 @@ I copied `07-physics.urdf` into this `Task_15` folder and changed the **material
 ```
 
 **Before (original red body):**
-![Robot before modification](/home/farah/ros2_ws/src/Task_15/red_robot.png)
+![Robot before modification](screenshots/red_robot.png)
 
 **After (blue body, shown with the Joint State Publisher GUI open):**
-![Robot after modification](/home/farah/ros2_ws/src/Task_15/robot_visibilty.png)
+![Robot after modification](screenshots/robot_visibilty.png)
 
 **Result in RViz:** the body cylinder changed color from red to blue, with no effect on the robot's geometry, joints, or TF tree — this confirms that `<material>` is a purely visual property and doesn't affect the physical/kinematic description of the robot.
 
