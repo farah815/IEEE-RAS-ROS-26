@@ -86,10 +86,10 @@ I copied `07-physics.urdf` into this `Task_15` folder and changed the **material
 ```
 
 **Before (original red body):**
-![Robot before modification](screenshots/red_robot.png)
+![Robot before modification](screenshots/robot_visibilty.png)
 
-**After (blue body, shown with the Joint State Publisher GUI open):**
-![Robot after modification](screenshots/robot_visibilty.png)
+**After (red body, shown with the Joint State Publisher GUI open):**
+![Robot after modification](screenshots/red_robot.png)
 
 **Result in RViz:** the body cylinder changed color from red to blue, with no effect on the robot's geometry, joints, or TF tree — this confirms that `<material>` is a purely visual property and doesn't affect the physical/kinematic description of the robot.
 
