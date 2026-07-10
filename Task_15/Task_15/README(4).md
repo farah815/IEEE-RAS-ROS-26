@@ -77,11 +77,11 @@ ros2 topic echo /joint_states
 ![Joint States After](screenshots/after_changing_joints.png)
 
 ## Simple Modification
-I copied `07-physics.urdf` into this `Task_15` folder and changed the **material color** of `base_link` from **red** to **blue**:
+I copied `07-physics.urdf` into this `Task_15` folder and changed the **material color** of `base_link` from **blue** to **red**:
 
 ```xml
-<material name="blue">
-  <color rgba="0 0 0.8 1"/>
+<material name="red">
+  <color rgba="1 0 0 1"/>
 </material>
 ```
 
